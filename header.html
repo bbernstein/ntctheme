@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0;">
+</head>
+
+<body class="header-page has-header">
+	<div id="header">
+		<div class="header-wrap">
+			<div class="logo">
+				<label id="nav-trigger" class="hamburger" for="mobile-input"><span></span></label>
+				{logo}
+			</div>
+			<div id="nav" class="menu">
+				{menu}
+			</div>
+			<div id="navmobile" class="menu">{menu}</div>
+		</div>
+	</div>
+	<div class="banner-wrap">
+		{{#header}}
+			<div class="banner">
+				<div class="banner-inner">{content}</div>
+			</div>
+		{{/header}}
+	</div>
+	{{#sections}}
+		<div class="content-wrap container">{content}</div>
+	{{/sections}}
+
+	<div class="footer-wrap">
+		<div class="site-footer container">
+			{footer}
+		</div>
+	</div>
+	<script type="text/javascript" src="/files/theme/custom.js"></script>
+	<script type="text/javascript" src="/files/theme/mobile.js"></script>
+</body>
+</html>
