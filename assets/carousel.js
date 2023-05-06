@@ -3,7 +3,7 @@ const ntcCarouselTimeouts = [];
 function slideReadTime(slidesContainer, scrollPosition) {
   const slideWidth = slidesContainer.clientWidth;
   const curIndex = scrollPosition / slideWidth;
-  const element = document.querySelector(".ntc-slide:nth-child(" + (curIndex + 1) + ")");
+  const element = slidesContainer.querySelector(".ntc-slide:nth-child(" + (curIndex + 1) + ")");
   const text = element.innerHTML;
   const textLength = text.length;
   return textLength * 50;
