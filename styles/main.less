@@ -88,7 +88,7 @@ a {
 
 .paragraph a:hover {
   color: #ffffff;
-  background: @accent;
+  text-decoration: underline;
 }
 
 .content-wrap blockquote,
@@ -172,7 +172,6 @@ body.wsite-checkout-page #header {
   display: table;
   width: 100%;
   height: 100%;
-  height: 120px;
   -webkit-transition: height 0.3s ease-in-out, background-color 0.3s ease-in-out;
   -moz-transition: height 0.3s ease-in-out, background-color 0.3s ease-in-out;
   -o-transition: height 0.3s ease-in-out, background-color 0.3s ease-in-out;
@@ -226,6 +225,23 @@ body.wsite-checkout-page #header {
   display: none;
 }
 
+.above {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: right;
+}
+
+.above li.social a img {
+  vertical-align: bottom;
+  margin-bottom: 6px;
+  margin-left: 4px;
+}
+
+.minimal .menu {
+  vertical-align: bottom;
+}
+
 .menu {
   display: table-cell;
   vertical-align: middle;
@@ -238,7 +254,8 @@ body.wsite-checkout-page #header {
   list-style: none;
 }
 
-.menu li:first-child {
+// NTC: hide first element (home)
+.menu li.wsite-nav-1 {
   visibility: hidden;
 }
 
@@ -475,7 +492,7 @@ body.splash-page {
   color: @accent !important;
   background-image: none !important;
   background: #ffffff !important;
-  border: 3px solid @accent !important;
+  border: 1px solid @accent !important;
   -webkit-transition: all 0.15s ease-in-out;
   -moz-transition: all 0.15s ease-in-out;
   -o-transition: all 0.15s ease-in-out;
@@ -1091,6 +1108,28 @@ h2.blog-title a:hover {
   .menu .wsite-menu-default li a {
     display: block;
     position: relative;
+  }
+
+  // NTC: hide 'home' in mobile view
+  .menu .wsite-mobile-menu .wsite-menu-default li:first-child {
+    display: none;
+  }
+
+  // mobile top menu adjustments
+  .above {
+    line-height: 10px;
+  }
+
+  .menu .wsite-menu-default li.social {
+    display: block;
+    position: relative;
+  }
+
+  .menu .wsite-menu-default li.social a {
+    display: inline;
+    position: relative;
+    top: 5px;
+    left: -30px;
   }
 
   #header .header-wrap, #header.minimal .header-wrap {
