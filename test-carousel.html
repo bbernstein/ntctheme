@@ -1,0 +1,216 @@
+<style>
+    .ntc-slider-wrapper {
+        margin: 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .ntc-slides-container {
+        height: auto;
+        width: 80%;
+        display: flex;
+        list-style: none;
+        margin: auto;
+        padding: 10px;
+        overflow: scroll;
+        scroll-behavior: smooth;
+    }
+
+    ul.ntc-slides-container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .ntc-slide {
+        margin-right: 10px;
+        margin-left: 10px;
+        width: 100%;
+        height: 100%;
+        flex: 1 0 100%;
+    }
+
+    li.ntc-slide {
+        font-family: 'Lato', sans-serif;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: bold;
+    }
+
+    ul.quotes li.ntc-slide:before {
+        content: "“";
+    }
+
+    ul.quotes li.ntc-slide:after {
+        content: "”";
+    }
+
+
+    .ntc-slide-arrow {
+        position: absolute;
+        display: flex;
+        top: 0;
+        bottom: 0;
+        height: 4rem;
+        background-color: white;
+        border: none;
+        width: 2rem;
+        font-size: 3rem;
+        padding: 0;
+        cursor: pointer;
+        opacity: 0.5;
+        transition: opacity 100ms;
+    }
+
+    .ntc-slide-arrow:hover,
+    .ntc-slide-arrow:focus {
+        opacity: 1;
+    }
+
+    .ntc-slide-arrow-prev {
+        left: 0;
+        padding-left: 0.25rem;
+        border-radius: 0 2rem 2rem 0;
+    }
+
+    .ntc-slide-arrow-next {
+        right: 0;
+        padding-left: 0.75rem;
+        border-radius: 2rem 0 0 2rem;
+    }
+</style>
+
+<section class="ntc-slider-wrapper" style="color:#414042">
+    <ul class="ntc-slides-container">
+        <li class="ntc-slide">
+            Great job on <b>War of the Worlds</b>! Loved it! Thanks for entertaining us during this time of isolation.
+        </li>
+        <li class="ntc-slide">
+            Brava!!! Scared the hell out of me. What a great production and the sound effects. Wow!
+        </li>
+        <li class="ntc-slide">
+
+            <b>Sorry, Wrong Number</b> was riveting!
+        </li>
+        <li class="ntc-slide">
+            We loved <b>Rebecca</b>! Thank you so much for helping us feel like we have 'date night' during the
+            quarantine!
+        </li>
+        <li class="ntc-slide">
+            Great fun once again. What an excellent troupe you have! And I really enjoyed the introductory jazz.
+        </li>
+        <li class="ntc-slide">
+            I'm so impressed with how you did it. Hard to believe I was sitting in my backyard with my iPad because I
+            could have sworn I was at the theatre. Only wish you could hear the applause throughout Newton. Bravo
+            everyone and thank you!
+        </li>
+        <li class="ntc-slide">
+            <b>Under Milkwood</b> was a wonderful performance and everyone outdid themselves. So lyrical and poetic!
+        </li>
+        <li class="ntc-slide">
+            I was blown away. An excellent, powerful and thought-provoking play, and very timely. Your new season has
+            started off with a bang.
+        </li>
+        <li class="ntc-slide">
+            I thought the cast did an amazing job. At times I forgot that the actors were all in different windows. The
+            skill to act, portray emotion without being able to physically move was impressive. I look forward to your
+            next production.
+        </li>
+        <li class="ntc-slide">
+            My husband and I loved <b>Rebecca<b>! Everything flowed so seamlessly, the sound effects worked so well, and
+            the
+            acting was amazing - you would think you had been doing online performances like this for years.
+        </li>
+        <li class="ntc-slide">
+            I was amazed how the cast conveyed their character's personality with just their faces, hands, hairstyles
+            and a few props. It was an ambitious undertaking - theatrically and technically - and I look forward to
+            more.
+        </li>
+        <li class="ntc-slide">
+            A big THANK YOU to the company for providing joy in crazy times! I've been so impressed by your creativity!
+            Looking forward to your next production, and to the time we can meet in person!
+        </li>
+        <li class="ntc-slide">
+            That was pure magic! Thank you!
+        </li>
+    </ul>
+    <button class="ntc-slide-arrow-prev ntc-slide-arrow">
+        &#8249;
+    </button>
+    <button class="ntc-slide-arrow-next ntc-slide-arrow">
+        &#8250;
+    </button>
+</section>
+
+<script>
+  const ntcCarouselTimeouts = [];
+
+  function slideReadTime(slidesContainer, scrollPosition) {
+    const slideWidth = slidesContainer.clientWidth;
+    const curIndex = scrollPosition / slideWidth;
+    const element = document.querySelector(".ntc-slide:nth-child(" + (curIndex + 1) + ")");
+    const text = element.innerHTML;
+    const textLength = text.length;
+    return textLength * 50;
+  }
+
+  function ntcCarouselNextClicked(e) {
+    const slidesContainer = ntcGetParentByClassName(e.target, 'ntc-slider-wrapper').querySelector(".ntc-slides-container");
+    ntcCarouselShowNextSlide(slidesContainer);
+  }
+
+  function ntcCarouselShowNextSlide(slidesContainer) {
+    slidesContainer.id && ntcCarouselTimeouts[slidesContainer.id] && clearTimeout(ntcCarouselTimeouts[slidesContainer.id]);
+    const totalWidth = slidesContainer.scrollWidth;
+    const slideWidth = slidesContainer.clientWidth;
+    const distanceToScroll = slideWidth - (slidesContainer.scrollLeft % slideWidth);
+    const newScrollPosition =
+      slidesContainer.scrollLeft + slideWidth + distanceToScroll >= totalWidth
+        ? 0
+        : slidesContainer.scrollLeft + distanceToScroll;
+    slidesContainer.scrollLeft = newScrollPosition;
+    if (slidesContainer.id) {
+      ntcCarouselTimeouts[slidesContainer.id] = setTimeout(() => ntcCarouselShowNextSlide(slidesContainer), slideReadTime(slidesContainer, newScrollPosition));
+    }
+
+  }
+
+  function ntcCarouselPrevClicked(e) {
+    const slidesContainer = ntcGetParentByClassName(e.target, 'ntc-slider-wrapper').querySelector(".ntc-slides-container");
+    ntcCarouselShowPrevSlide(slidesContainer);
+  }
+
+  function ntcGetParentByClassName(element, className) {
+    if (element.classList.contains(className)) {
+      return element;
+    } else {
+      return ntcGetParentByClassName(element.parentElement, className);
+    }
+  }
+
+  function ntcCarouselShowPrevSlide(slidesContainer) {
+    slidesContainer.id && ntcCarouselTimeouts[slidesContainer.id] && clearTimeout(ntcCarouselTimeouts[slidesContainer.id]);
+    const slideWidth = slidesContainer.clientWidth;
+    const shift = slidesContainer.scrollLeft % slideWidth
+    const distanceToScroll = shift === 0 ? slideWidth : shift
+    const newScrollPosition = slidesContainer.scrollLeft - distanceToScroll;
+    slidesContainer.scrollLeft = newScrollPosition;
+    if (slidesContainer.id) {
+      ntcCarouselTimeouts[slidesContainer.id] = setTimeout(() => ntcCarouselShowNextSlide(slidesContainer), slideReadTime(slidesContainer, newScrollPosition));
+    }
+  }
+
+  function ntcCarouseliInitSlides() {
+    const slideWrappers = document.querySelectorAll(".ntc-slider-wrapper");
+    slideWrappers.forEach((wrapper) => {
+      const container = wrapper.querySelector(".ntc-slides-container");
+      container.id = "slider-" + Math.floor(Math.random() * 100000);
+      const nextButton = wrapper.querySelector(".ntc-slide-arrow-next");
+      const prevButton = wrapper.querySelector(".ntc-slide-arrow-prev");
+      nextButton.addEventListener("click", ntcCarouselNextClicked);
+      prevButton.addEventListener("click", ntcCarouselPrevClicked);
+      ntcCarouselTimeouts[container.id] = setTimeout(() => nextButton.click(), slideReadTime(container, 0));
+    });
+  }
+
+  ntcCarouseliInitSlides();
+</script>
