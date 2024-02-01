@@ -6,7 +6,7 @@ function slideReadTime(slidesContainer, scrollPosition) {
   const element = slidesContainer.querySelector(".ntc-slide:nth-child(" + (curIndex + 1) + ")");
   const text = element.innerHTML;
   const textLength = text.length;
-  return textLength * 50;
+  return textLength * 60 + 1000;
 }
 
 function ntcCarouselNextClicked(e) {
